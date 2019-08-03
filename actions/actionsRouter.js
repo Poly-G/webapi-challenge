@@ -37,6 +37,16 @@ router.put("/:id", validateID, async (req, res) => {
   }
 });
 
+// send a DELETE request to delete an action
+router.delete("/:id", validateID, async (req, res) => {
+  try {
+    const action = await db.remove(req.params.id);
+    res.json(action);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 //
 async function validateID(req, res, next) {
   try {
