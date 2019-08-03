@@ -27,6 +27,16 @@ router.get("/:id", validateID, async (req, res) => {
   }
 });
 
+// send a PUT (UPDATE) request to edit an action
+router.put("/:id", validateID, async (req, res) => {
+  try {
+    const action = await db.update(req.params.id, req.body);
+    res.json(action);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 //
 async function validateID(req, res, next) {
   try {
