@@ -1,5 +1,5 @@
 - [ ] Mention two parts of Express that you learned about this week.
-- I learned how importing is different in express than it is in React. I learned that you cant use ES6 in node.js unless you use babel and configure your app to do so
+      I learned how importing is different in express than it is in React. I learned that you cant use ES6 in node.js unless you use babel and configure your app to do so
 
 - [ ] Describe Middleware?
       Middleware are functions that have access to req and res, and are executed in the middle after a incoming request
