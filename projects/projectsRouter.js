@@ -46,18 +46,36 @@ router.put("/:id", validateID, async (req, res) => {
     if (project) {
       res.status(200).json(project);
     } else {
-      res.status(404).json({ message: "The hub could not be found" });
+      res.status(404).json({ message: "The project could not be found" });
     }
   } catch (error) {
     // log error to server
     console.log(error);
     res.status(500).json({
-      message: "Error updating the hub"
+      message: "Error updating the project"
     });
   }
 });
 
 // send a DELETE request to delete a project
+router.delete("/:id", validateID, async (req, res) => {
+  try {
+    const project = await db.remove(req.params.id);
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// send a GET (READ) request to retrieve all actions for a project
+router.get("/:id/actions", validateID, async (req, res) => {
+  try {
+    const projectActions = await db.getProjectActions(req.params.id);
+    res.json(projectActions);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 async function validateID(req, res, next) {
   const { id } = req.params;
