@@ -27,6 +27,22 @@ router.get("/:id", validateID, async (req, res) => {
   }
 });
 
+// send a POST (CREATE) request to create an action
+router.post("/", async (req, res) => {
+  try {
+    const validateProject = await dbProjects.get(req.body.project_id);
+
+    if (validateProject) {
+      const newAction = await db.insert(req.body);
+      res.json(newAction);
+    } else {
+      res.status(404).json({ message: "There is no project with that id" });
+    }
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
 // send a PUT (UPDATE) request to edit an action
 router.put("/:id", validateID, async (req, res) => {
   try {
