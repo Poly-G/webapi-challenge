@@ -13,4 +13,4 @@
 - [ ] How can we partition our application into sub-applications?
       Separate different files for different routes.
 
-Deployed app - https://pg-shout.herokuapp.com/
+Deployed app - https://pg-sprint.herokuapp.com/
