@@ -17,4 +17,29 @@ router.get("/", async (req, res) => {
   }
 });
 
+// send a GET (READ) request to retrieve a single action
+router.get("/:id", validateID, async (req, res) => {
+  try {
+    const action = await db.get(req.params.id);
+    res.json(action);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//
+async function validateID(req, res, next) {
+  try {
+    const action = await db.get(req.params.id);
+    if (action) {
+      req.action = action;
+      next();
+    } else {
+      next({ message: "invalid action ID" });
+    }
+  } catch (err) {
+    res.status(404).json({ message: "No action found at that id" });
+  }
+}
+
 module.exports = router;

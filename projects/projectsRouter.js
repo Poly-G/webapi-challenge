@@ -25,8 +25,12 @@ router.get("/", async (req, res) => {
 
 // send a GET (READ) request to retrieve a single project
 router.get("/:id", validateID, async (req, res) => {
-  const project = await db.get(req.params.id);
-  res.json(project);
+  try {
+    const project = await db.get(req.params.id);
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // send a POST (CREATE) request to create a project
